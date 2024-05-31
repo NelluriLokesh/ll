@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driving License</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 100px;
+        }
+        .license-card {
+            background-color: #fff;
+            width: 380px;
+            height: 245px;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .license-header {
+            background-color: #004b8d;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 23px;
+            font-weight: bold;
+            margin-bottom: 22px;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+        .license-photo {
+            float: right;
+            margin-left: 20px;
+        }
+        .license-photo img {
+            width: 150px;
+            height: 130px;
+            border-radius: 5px;
+        }
+        .license-details {
+            margin-bottom: 20px;
+        }
+        .license-details p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+        .barcode {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+        }
+        .barcode img {
+            width: 140px; /* Adjust the width of the QR code */
+            height: 40px; /* Let the height adjust proportionally */
+        }
+        .logo {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+        }
+        .logo img {
+            width: 80px;
+        }
+        .watermark {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            font-size: 12px;
+            color: rgba(0, 0, 0, 0.5);
+            transform: rotate(45deg);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="license-card">
+    <div class="license-header">Driving License</div>
+    <div class="license-photo">
+        <img id="license-photo" src="" alt="License Photo">
+    </div>
+    <div class="license-details">
+        <p><strong>Name:</strong> <span id="name">Your Name</span></p>
+        <p><strong>Date of Birth:</strong> <span id="dob">Your DOB</span></p>
+        <p><strong>License Number:</strong> <span id="license-number">Your License Number</span></p>
+        <p><strong>Expires:</strong> <span id="expires">Expiry Date</span></p>
+        <p><strong>Issued by:</strong> <span id="issued-by">Issuing Authority</span></p>
+    </div>
+    <div class="barcode">
+        <a href="#" target="_blank">
+            <img src="https://tse4.mm.bing.net/th?id=OIP.gdXpFF_lzVyByo61_IzorgHaEE&pid=Api&P=0&h=180" alt="HackerRank Barcode">
+        </a>
+    </div>
+    <div class="logo">
+        <img src="dmv_logo.png" alt="DMV Logo">
+    </div>
+    <div class="watermark"></div>
+</div>
+
+<script>
+    // JavaScript to fetch data from the Python server and update the HTML
+    fetch('/data')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('name').textContent = data.name;
+            document.getElementById('dob').textContent = data.dob;
+            document.getElementById('license-number').textContent = data.licenseNumber;
+            document.getElementById('expires').textContent = data.expires;
+            document.getElementById('issued-by').textContent = data.issuedBy;
+            document.getElementById('license-photo').src = data.photoUrl; // Assuming 'photoUrl' is the URL of the photo in the data
+        });
+</script>
+
+</body>
+</html>
